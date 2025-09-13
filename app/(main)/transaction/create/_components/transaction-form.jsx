@@ -169,12 +169,16 @@ const AddTransactionForm = ({
                 </SelectItem>
               ))}
               <CreateAccountDrawer>
-                <Button
-                  variant="ghost"
+                {/* Replace Button with span or div to avoid nested button error */}
+                <span
                   className="relative flex w-full cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none hover:bg-accent hover:text-accent-foreground"
+                  style={{ display: "block" }}
+                  role="button"
+                  tabIndex={0}
+                  onClick={() => {/* your open drawer logic here */}}
                 >
                   Create Account
-                </Button>
+                </span>
               </CreateAccountDrawer>
             </SelectContent>
           </Select>
