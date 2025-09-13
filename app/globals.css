@@ -124,6 +124,18 @@
   }
 }
 
+@keyframes gradientMove {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+  
+}
 .hero-image-wrapper {
   perspective: 1000px;
 }
@@ -134,4 +146,9 @@
 }
 .hero-image.scrolled {
   transform: rotateX(0deg) scale(1) translateY(40px); /* <-- px added */
+}
+
+.animate-gradient{
+  background-size: 200% 200%;
+  animation: gradientAnimation 3s ease infinite;
 }

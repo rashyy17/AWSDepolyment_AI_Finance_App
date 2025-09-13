@@ -85,13 +85,13 @@ const [dateRange, setDateRange] = useState("1M");
           <div className="text-center">
             <p className="text-muted-foreground">Total Income</p>
             <p className="text-lg font-bold text-green-500">
-              ${totals.income.toFixed(2)}
+              ₹{totals.income.toFixed(2)}
             </p>
           </div>
           <div className="text-center">
             <p className="text-muted-foreground">Total Expenses</p>
             <p className="text-lg font-bold text-red-500">
-              ${totals.expense.toFixed(2)}
+              ₹{totals.expense.toFixed(2)}
             </p>
           </div>
           <div className="text-center">
@@ -103,7 +103,7 @@ const [dateRange, setDateRange] = useState("1M");
                   : "text-red-500"
               }`}
             >
-              ${(totals.income - totals.expense).toFixed(2)}
+              ₹{(totals.income - totals.expense).toFixed(2)}
             </p>
           </div>
         </div>
@@ -127,7 +127,7 @@ const [dateRange, setDateRange] = useState("1M");
                 tickFormatter={(value) => `$${value}`}
               />
               <Tooltip
-                formatter={(value) => [`$${value}`, undefined]}
+                formatter={(value) => [`₹${value}`, undefined]}
                 contentStyle={{
                   backgroundColor: "hsl(var(--popover))",
                   border: "1px solid hsl(var(--border))",
