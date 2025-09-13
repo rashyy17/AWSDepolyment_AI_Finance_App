@@ -30,12 +30,6 @@ export const statsData = [
 // Features Data
 export const featuresData = [
   {
-    icon: <BarChart3 className="h-8 w-8 text-blue-600" />,
-    title: "Advanced Analytics",
-    description:
-      "Get detailed insights into your spending patterns with AI-powered analytics",
-  },
-  {
     icon: <Receipt className="h-8 w-8 text-blue-600" />,
     title: "Smart Receipt Scanner",
     description:
@@ -50,17 +44,7 @@ export const featuresData = [
     icon: <CreditCard className="h-8 w-8 text-blue-600" />,
     title: "Multi-Account Support",
     description: "Manage multiple accounts and credit cards in one place",
-  },
-  {
-    icon: <Globe className="h-8 w-8 text-blue-600" />,
-    title: "Multi-Currency",
-    description: "Support for multiple currencies with real-time conversion",
-  },
-  {
-    icon: <Zap className="h-8 w-8 text-blue-600" />,
-    title: "Automated Insights",
-    description: "Get automated financial insights and recommendations",
-  },
+  }
 ];
 
 // How It Works Data
@@ -92,7 +76,7 @@ export const testimonialsData = [
     role: "Small Business Owner",
     image: "https://randomuser.me/api/portraits/women/75.jpg",
     quote:
-      "Welth has transformed how I manage my business finances. The AI insights have helped me identify cost-saving opportunities I never knew existed.",
+      "Cashy has transformed how I manage my business finances. The AI insights have helped me identify cost-saving opportunities I never knew existed.",
   },
   {
     name: "Michael Chen",
@@ -106,6 +90,6 @@ export const testimonialsData = [
     role: "Financial Advisor",
     image: "https://randomuser.me/api/portraits/women/74.jpg",
     quote:
-      "I recommend Welth to all my clients. The multi-currency support and detailed analytics make it perfect for international investors.",
+      "I recommend Cashy to all my clients. The multi-currency support and detailed analytics make it perfect for international investors.",
   },
 ];

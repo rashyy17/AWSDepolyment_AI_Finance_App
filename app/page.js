@@ -9,20 +9,7 @@ export default function Home() {
   return (
     <div className='mt-40'>
       <HeroSection/>
-      <section className="py-20 bg-blue-50">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {statsData.map((stat, index) => (
-              <div key={index} className="text-center">
-                <div className="text-4xl font-bold text-blue-600 mb-2">
-                  {stat.value}
-                </div>
-                <div className="text-gray-600">{stat.label}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      
       <section id="features" className="py-20">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold text-center mb-12">
@@ -60,32 +47,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Testimonials Section */}
-      <section id="testimonials" className="py-20">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-16">
-            What Our Users Say
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {testimonialsData.map((testimonial, index) => (
-              <Card key={index} className="p-6">
-                <CardContent className="pt-4">
-                  <div className="flex items-center mb-4">
-                   
-                    <div className="ml-4">
-                      <div className="font-semibold">{testimonial.name}</div>
-                      <div className="text-sm text-gray-600">
-                        {testimonial.role}
-                      </div>
-                    </div>
-                  </div>
-                  <p className="text-gray-600">{testimonial.quote}</p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
+      
 
       {/* CTA Section */}
       <section className="py-20 bg-blue-600">
@@ -95,12 +57,12 @@ export default function Home() {
           </h2>
           <p className="text-blue-100 mb-8 max-w-2xl mx-auto">
             Join thousands of users who are already managing their finances
-            smarter with Welth
+            smarter with Cashy
           </p>
           <Link href="/dashboard">
             <Button
               size="lg"
-              className="bg-white text-blue-600 hover:bg-blue-50 animate-bounce"
+              className="bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 text-white font-bold rounded-full shadow-lg px-8 py-4 transition-all duration-300 hover:scale-105 hover:from-black-600 hover:to-blue-600 animate-bounce"
             >
               Start Free Trial
             </Button>

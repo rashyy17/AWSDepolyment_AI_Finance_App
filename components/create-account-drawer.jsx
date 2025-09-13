@@ -71,7 +71,7 @@ const CreateAccountDrawer=({children})=>{
       <DrawerTrigger >{children}</DrawerTrigger>
       <DrawerContent>
         <DrawerHeader>
-          <DrawerTitle>lomo</DrawerTitle>
+          <DrawerTitle>Create Account</DrawerTitle>
         </DrawerHeader>
         <div className="px-4 pb-4">
           <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
