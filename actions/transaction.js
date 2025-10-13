@@ -119,12 +119,25 @@ function calculateNextRecurringDate(startDate, interval) {
 
 export async function scanReceipt(file) {
   try {
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+    console.log("=== DEBUG INFO ===");
+    console.log("Gemini key present?", !!process.env.GEMINI_API_KEY);
+    console.log("File type:", file.type);
+    console.log("File size:", file.size);
+
+    if (!process.env.GEMINI_API_KEY) {
+      throw new Error("GEMINI_API_KEY environment variable is not set");
+    }
+
+    // Use one of the available models that support image analysis
+    const model = genAI.getGenerativeModel({ model: "models/gemini-2.0-flash" });
 
     // Convert File to ArrayBuffer
     const arrayBuffer = await file.arrayBuffer();
+    console.log("ArrayBuffer created, size:", arrayBuffer.byteLength);
+    
     // Convert ArrayBuffer to Base64
     const base64String = Buffer.from(arrayBuffer).toString("base64");
+    console.log("Base64 conversion successful, length:", base64String.length);
 
     const prompt = `
       Analyze this receipt image and extract the following information in JSON format:
@@ -143,39 +156,57 @@ export async function scanReceipt(file) {
         "category": "string"
       }
 
-      If its not a recipt, return an empty object
+      If its not a receipt, return an empty object: {}
     `;
 
+    console.log("Sending request to Gemini 2.0 Flash...");
+    
     const result = await model.generateContent([
+      prompt,
       {
         inlineData: {
           data: base64String,
           mimeType: file.type,
         },
       },
-      prompt,
     ]);
 
     const response = await result.response;
     const text = response.text();
+    console.log("Raw Gemini response:", text);
+    
     const cleanedText = text.replace(/```(?:json)?\n?/g, "").trim();
+    console.log("Cleaned text:", cleanedText);
 
     try {
       const data = JSON.parse(cleanedText);
+      console.log("Parsed data successfully:", data);
+      console.log(`SUCCESS: Model worked!`);
+      
+      // Check if it's an empty object (not a receipt)
+      if (Object.keys(data).length === 0) {
+        throw new Error("No receipt detected in the image");
+      }
+      
       return {
-        amount: parseFloat(data.amount),
-        date: new Date(data.date),
-        description: data.description,
-        category: data.category,
-        merchantName: data.merchantName,
+        amount: parseFloat(data.amount) || 0,
+        date: data.date ? new Date(data.date) : new Date(),
+        description: data.description || "Receipt scan",
+        category: data.category || "other-expense",
+        merchantName: data.merchantName || "Unknown",
       };
     } catch (parseError) {
       console.error("Error parsing JSON response:", parseError);
-      throw new Error("Invalid response format from Gemini");
+      console.error("Text that failed to parse:", `"${cleanedText}"`);
+      throw new Error(`Invalid response format from Gemini: ${parseError.message}`);
     }
+
   } catch (error) {
-    console.error("Error scanning receipt:", error);
-    throw new Error("Failed to scan receipt");
+    console.error("=== SCAN RECEIPT ERROR ===");
+    console.error("Error type:", error.constructor.name);
+    console.error("Error message:", error.message);
+    console.error("Full error:", error);
+    throw new Error(`Failed to scan receipt: ${error.message}`);
   }
 }
 
