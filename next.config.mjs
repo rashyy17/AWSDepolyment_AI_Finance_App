@@ -7,6 +7,7 @@ const nextConfig = {
     experimental: { serverActions:{
         bodySizeLimit:"5mb",
     }, },
+    outputFileTracingRoot: import.meta.dirname,
 };
 
 export default nextConfig;
