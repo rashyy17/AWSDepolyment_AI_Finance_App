@@ -1,139 +1,139 @@
+import Link from 'next/link';
+
 export default function AddTransaction() {
   return (
     <div style={{
       minHeight: '100vh',
-      background: 'linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)',
+      background: '#f8f9fa',
       fontFamily: 'system-ui, -apple-system, sans-serif'
     }}>
       {/* Header */}
       <div style={{
         background: 'white',
         padding: '1rem 2rem',
-        boxShadow: '0 2px 10px rgba(0,0,0,0.1)',
+        boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center'
       }}>
-        <div style={{
+        <h1 style={{
+          margin: 0,
           fontSize: '1.5rem',
-          fontWeight: 'bold',
-          color: '#667eea',
-          display: 'flex',
-          alignItems: 'center',
-          gap: '0.5rem'
+          color: '#667eea'
         }}>
-          💰 <a href="/" style={{textDecoration: 'none', color: 'inherit'}}>Cashy</a>
-        </div>
-        <div style={{display: 'flex', gap: '1rem'}}>
-          <a href="/dashboard" style={{
-            color: '#667eea',
-            textDecoration: 'none',
-            padding: '0.5rem 1rem'
-          }}>
-            ← Back to Dashboard
-          </a>
-        </div>
+          💰 <Link href="/" style={{textDecoration: 'none', color: 'inherit'}}>Cashy</Link>
+        </h1>
+        <Link href="/dashboard" style={{
+          background: '#667eea',
+          color: 'white',
+          padding: '0.5rem 1rem',
+          borderRadius: '0.5rem',
+          textDecoration: 'none'
+        }}>
+          Back to Dashboard
+        </Link>
       </div>
 
       <div style={{padding: '2rem', maxWidth: '600px', margin: '0 auto'}}>
-        <h1 style={{
-          fontSize: '2rem',
-          fontWeight: 'bold',
-          marginBottom: '2rem',
-          color: '#333',
-          textAlign: 'center'
-        }}>
-          Add New Transaction
-        </h1>
+        <h2 style={{marginBottom: '2rem', color: '#333'}}>Add Transaction</h2>
 
         <div style={{
           background: 'white',
           padding: '2rem',
           borderRadius: '1rem',
-          boxShadow: '0 4px 15px rgba(0,0,0,0.1)'
+          boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
         }}>
-          <form style={{display: 'flex', flexDirection: 'column', gap: '1.5rem'}}>
+          <form>
             {/* Transaction Type */}
-            <div>
+            <div style={{marginBottom: '1.5rem'}}>
               <label style={{
                 display: 'block',
-                fontSize: '0.9rem',
-                fontWeight: '500',
                 marginBottom: '0.5rem',
+                fontWeight: '500',
                 color: '#333'
               }}>
                 Transaction Type
               </label>
               <div style={{display: 'flex', gap: '1rem'}}>
-                <label style={{display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer'}}>
-                  <input type="radio" name="type" value="income" defaultChecked />
-                  <span style={{color: '#10b981', fontWeight: '500'}}>💰 Income</span>
-                </label>
-                <label style={{display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer'}}>
-                  <input type="radio" name="type" value="expense" />
-                  <span style={{color: '#ef4444', fontWeight: '500'}}>💸 Expense</span>
-                </label>
+                <button type="button" style={{
+                  padding: '0.75rem 1.5rem',
+                  border: '2px solid #10b981',
+                  background: '#10b981',
+                  color: 'white',
+                  borderRadius: '0.5rem',
+                  fontWeight: '500',
+                  cursor: 'pointer'
+                }}>
+                  Income
+                </button>
+                <button type="button" style={{
+                  padding: '0.75rem 1.5rem',
+                  border: '2px solid #e5e7eb',
+                  background: 'white',
+                  color: '#666',
+                  borderRadius: '0.5rem',
+                  fontWeight: '500',
+                  cursor: 'pointer'
+                }}>
+                  Expense
+                </button>
               </div>
             </div>
 
             {/* Amount */}
-            <div>
+            <div style={{marginBottom: '1.5rem'}}>
               <label style={{
                 display: 'block',
-                fontSize: '0.9rem',
-                fontWeight: '500',
                 marginBottom: '0.5rem',
+                fontWeight: '500',
                 color: '#333'
               }}>
-                Amount ($)
+                Amount
               </label>
-              <input
-                type="number"
-                step="0.01"
+              <input 
+                type="number" 
                 placeholder="0.00"
                 style={{
                   width: '100%',
                   padding: '0.75rem',
-                  border: '1px solid #ddd',
+                  border: '1px solid #e5e7eb',
                   borderRadius: '0.5rem',
                   fontSize: '1rem',
-                  outline: 'none'
+                  boxSizing: 'border-box'
                 }}
               />
             </div>
 
             {/* Description */}
-            <div>
+            <div style={{marginBottom: '1.5rem'}}>
               <label style={{
                 display: 'block',
-                fontSize: '0.9rem',
-                fontWeight: '500',
                 marginBottom: '0.5rem',
+                fontWeight: '500',
                 color: '#333'
               }}>
                 Description
               </label>
-              <input
-                type="text"
-                placeholder="e.g., Grocery shopping, Salary, Coffee..."
+              <input 
+                type="text" 
+                placeholder="Enter description..."
                 style={{
                   width: '100%',
                   padding: '0.75rem',
-                  border: '1px solid #ddd',
+                  border: '1px solid #e5e7eb',
                   borderRadius: '0.5rem',
                   fontSize: '1rem',
-                  outline: 'none'
+                  boxSizing: 'border-box'
                 }}
               />
             </div>
 
             {/* Category */}
-            <div>
+            <div style={{marginBottom: '1.5rem'}}>
               <label style={{
                 display: 'block',
-                fontSize: '0.9rem',
-                fontWeight: '500',
                 marginBottom: '0.5rem',
+                fontWeight: '500',
                 color: '#333'
               }}>
                 Category
@@ -141,87 +141,63 @@ export default function AddTransaction() {
               <select style={{
                 width: '100%',
                 padding: '0.75rem',
-                border: '1px solid #ddd',
+                border: '1px solid #e5e7eb',
                 borderRadius: '0.5rem',
                 fontSize: '1rem',
-                outline: 'none',
+                boxSizing: 'border-box',
                 background: 'white'
               }}>
-                <option>Select a category</option>
-                <option>🍔 Food & Dining</option>
-                <option>🚗 Transportation</option>
-                <option>🏠 Housing</option>
-                <option>🎬 Entertainment</option>
-                <option>🛒 Shopping</option>
-                <option>💼 Work</option>
-                <option>💰 Income</option>
-                <option>📱 Bills & Utilities</option>
-                <option>🏥 Healthcare</option>
-                <option>📚 Education</option>
-                <option>✈️ Travel</option>
-                <option>🎁 Gifts</option>
-                <option>💳 Other</option>
+                <option value="">Select Category</option>
+                <option value="food">Food & Dining</option>
+                <option value="transport">Transportation</option>
+                <option value="shopping">Shopping</option>
+                <option value="entertainment">Entertainment</option>
+                <option value="bills">Bills & Utilities</option>
+                <option value="health">Health & Fitness</option>
+                <option value="salary">Salary</option>
+                <option value="business">Business</option>
+                <option value="other">Other</option>
               </select>
             </div>
 
             {/* Date */}
-            <div>
+            <div style={{marginBottom: '2rem'}}>
               <label style={{
                 display: 'block',
-                fontSize: '0.9rem',
-                fontWeight: '500',
                 marginBottom: '0.5rem',
+                fontWeight: '500',
                 color: '#333'
               }}>
                 Date
               </label>
-              <input
-                type="date"
-                defaultValue={new Date().toISOString().split('T')[0]}
+              <input 
+                type="date" 
                 style={{
                   width: '100%',
                   padding: '0.75rem',
-                  border: '1px solid #ddd',
+                  border: '1px solid #e5e7eb',
                   borderRadius: '0.5rem',
                   fontSize: '1rem',
-                  outline: 'none'
+                  boxSizing: 'border-box'
                 }}
               />
             </div>
 
             {/* Submit Button */}
-            <button
-              type="submit"
-              style={{
-                background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-                color: 'white',
-                border: 'none',
-                padding: '1rem 2rem',
-                borderRadius: '0.75rem',
-                fontSize: '1.1rem',
-                fontWeight: 'bold',
-                cursor: 'pointer',
-                marginTop: '1rem'
-              }}
-            >
+            <button type="submit" style={{
+              width: '100%',
+              background: '#667eea',
+              color: 'white',
+              border: 'none',
+              padding: '1rem',
+              borderRadius: '0.5rem',
+              fontSize: '1rem',
+              fontWeight: '500',
+              cursor: 'pointer'
+            }}>
               Add Transaction
             </button>
           </form>
-
-          {/* Demo Note */}
-          <div style={{
-            marginTop: '2rem',
-            padding: '1rem',
-            background: '#f8f9fa',
-            borderRadius: '0.5rem',
-            border: '1px solid #e9ecef',
-            textAlign: 'center'
-          }}>
-            <p style={{margin: 0, color: '#666', fontSize: '0.9rem'}}>
-              📝 <strong>Demo Mode:</strong> This is a demonstration form. 
-              In the full version, transactions would be saved to your personal database.
-            </p>
-          </div>
         </div>
       </div>
     </div>
