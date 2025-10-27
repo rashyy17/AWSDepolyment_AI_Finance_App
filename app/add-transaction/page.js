@@ -1,6 +1,39 @@
+'use client';
+
 import Link from 'next/link';
+import { useState } from 'react';
+import { useTransactions } from '../context/TransactionContext';
+import { useRouter } from 'next/navigation';
 
 export default function AddTransaction() {
+  const { addTransaction } = useTransactions();
+  const router = useRouter();
+  const [transactionType, setTransactionType] = useState('income');
+  const [amount, setAmount] = useState('');
+  const [description, setDescription] = useState('');
+  const [category, setCategory] = useState('');
+  const [date, setDate] = useState(new Date().toISOString().split('T')[0]);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    
+    if (!amount || !description || !category) {
+      alert('Please fill in all fields');
+      return;
+    }
+
+    // Add the transaction
+    addTransaction({
+      description,
+      amount: transactionType === 'income' ? parseFloat(amount) : -parseFloat(amount),
+      category,
+      type: transactionType
+    });
+
+    // Show success message and redirect
+    alert(`${transactionType === 'income' ? 'Income' : 'Expense'} of $${amount} added successfully!`);
+    router.push('/dashboard');
+  };
   return (
     <div style={{
       minHeight: '100vh',
@@ -43,7 +76,7 @@ export default function AddTransaction() {
           borderRadius: '1rem',
           boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
         }}>
-          <form>
+          <form onSubmit={handleSubmit}>
             {/* Transaction Type */}
             <div style={{marginBottom: '1.5rem'}}>
               <label style={{
@@ -55,26 +88,34 @@ export default function AddTransaction() {
                 Transaction Type
               </label>
               <div style={{display: 'flex', gap: '1rem'}}>
-                <button type="button" style={{
-                  padding: '0.75rem 1.5rem',
-                  border: '2px solid #10b981',
-                  background: '#10b981',
-                  color: 'white',
-                  borderRadius: '0.5rem',
-                  fontWeight: '500',
-                  cursor: 'pointer'
-                }}>
+                <button 
+                  type="button" 
+                  onClick={() => setTransactionType('income')}
+                  style={{
+                    padding: '0.75rem 1.5rem',
+                    border: `2px solid ${transactionType === 'income' ? '#10b981' : '#e5e7eb'}`,
+                    background: transactionType === 'income' ? '#10b981' : 'white',
+                    color: transactionType === 'income' ? 'white' : '#666',
+                    borderRadius: '0.5rem',
+                    fontWeight: '500',
+                    cursor: 'pointer'
+                  }}
+                >
                   Income
                 </button>
-                <button type="button" style={{
-                  padding: '0.75rem 1.5rem',
-                  border: '2px solid #e5e7eb',
-                  background: 'white',
-                  color: '#666',
-                  borderRadius: '0.5rem',
-                  fontWeight: '500',
-                  cursor: 'pointer'
-                }}>
+                <button 
+                  type="button" 
+                  onClick={() => setTransactionType('expense')}
+                  style={{
+                    padding: '0.75rem 1.5rem',
+                    border: `2px solid ${transactionType === 'expense' ? '#ef4444' : '#e5e7eb'}`,
+                    background: transactionType === 'expense' ? '#ef4444' : 'white',
+                    color: transactionType === 'expense' ? 'white' : '#666',
+                    borderRadius: '0.5rem',
+                    fontWeight: '500',
+                    cursor: 'pointer'
+                  }}
+                >
                   Expense
                 </button>
               </div>
@@ -92,7 +133,10 @@ export default function AddTransaction() {
               </label>
               <input 
                 type="number" 
+                step="0.01"
                 placeholder="0.00"
+                value={amount}
+                onChange={(e) => setAmount(e.target.value)}
                 style={{
                   width: '100%',
                   padding: '0.75rem',
@@ -117,6 +161,8 @@ export default function AddTransaction() {
               <input 
                 type="text" 
                 placeholder="Enter description..."
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
                 style={{
                   width: '100%',
                   padding: '0.75rem',
@@ -138,15 +184,19 @@ export default function AddTransaction() {
               }}>
                 Category
               </label>
-              <select style={{
-                width: '100%',
-                padding: '0.75rem',
-                border: '1px solid #e5e7eb',
-                borderRadius: '0.5rem',
-                fontSize: '1rem',
-                boxSizing: 'border-box',
-                background: 'white'
-              }}>
+              <select 
+                value={category}
+                onChange={(e) => setCategory(e.target.value)}
+                style={{
+                  width: '100%',
+                  padding: '0.75rem',
+                  border: '1px solid #e5e7eb',
+                  borderRadius: '0.5rem',
+                  fontSize: '1rem',
+                  boxSizing: 'border-box',
+                  background: 'white'
+                }}
+              >
                 <option value="">Select Category</option>
                 <option value="food">Food & Dining</option>
                 <option value="transport">Transportation</option>
@@ -172,6 +222,8 @@ export default function AddTransaction() {
               </label>
               <input 
                 type="date" 
+                value={date}
+                onChange={(e) => setDate(e.target.value)}
                 style={{
                   width: '100%',
                   padding: '0.75rem',
@@ -186,7 +238,7 @@ export default function AddTransaction() {
             {/* Submit Button */}
             <button type="submit" style={{
               width: '100%',
-              background: '#667eea',
+              background: transactionType === 'income' ? '#10b981' : '#ef4444',
               color: 'white',
               border: 'none',
               padding: '1rem',
@@ -195,7 +247,7 @@ export default function AddTransaction() {
               fontWeight: '500',
               cursor: 'pointer'
             }}>
-              Add Transaction
+              Add {transactionType === 'income' ? 'Income' : 'Expense'}
             </button>
           </form>
         </div>

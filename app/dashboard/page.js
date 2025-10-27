@@ -1,6 +1,10 @@
+'use client';
+
 import Link from 'next/link';
+import { useTransactions } from '../context/TransactionContext';
 
 export default function Dashboard() {
+  const { transactions, getBalance, getMonthlyIncome, getMonthlyExpenses } = useTransactions();
   return (
     <div style={{
       minHeight: '100vh',
@@ -51,7 +55,7 @@ export default function Dashboard() {
             borderRadius: '1rem'
           }}>
             <div style={{fontSize: '0.9rem', opacity: 0.8}}>Total Balance</div>
-            <div style={{fontSize: '2rem', fontWeight: 'bold'}}>$2,540.50</div>
+            <div style={{fontSize: '2rem', fontWeight: 'bold'}}>${getBalance().toFixed(2)}</div>
           </div>
 
           <div style={{
@@ -62,7 +66,7 @@ export default function Dashboard() {
           }}>
             <div style={{fontSize: '0.9rem', color: '#666'}}>This Month</div>
             <div style={{fontSize: '1.5rem', fontWeight: 'bold', color: '#10b981'}}>
-              +$1,200
+              +${getMonthlyIncome().toFixed(2)}
             </div>
           </div>
 
@@ -74,7 +78,7 @@ export default function Dashboard() {
           }}>
             <div style={{fontSize: '0.9rem', color: '#666'}}>Expenses</div>
             <div style={{fontSize: '1.5rem', fontWeight: 'bold', color: '#ef4444'}}>
-              -$659.50
+              -${getMonthlyExpenses().toFixed(2)}
             </div>
           </div>
         </div>
@@ -94,56 +98,25 @@ export default function Dashboard() {
           </div>
           
           <div>
-            <div style={{
-              padding: '1rem',
-              borderBottom: '1px solid #f9f9f9',
-              display: 'flex',
-              justifyContent: 'space-between'
-            }}>
-              <div>
-                <div style={{fontWeight: '500'}}>Grocery Store</div>
-                <div style={{fontSize: '0.85rem', color: '#666'}}>Today</div>
+            {transactions.slice(0, 4).map((transaction) => (
+              <div key={transaction.id} style={{
+                padding: '1rem',
+                borderBottom: '1px solid #f9f9f9',
+                display: 'flex',
+                justifyContent: 'space-between'
+              }}>
+                <div>
+                  <div style={{fontWeight: '500'}}>{transaction.description}</div>
+                  <div style={{fontSize: '0.85rem', color: '#666'}}>{transaction.date}</div>
+                </div>
+                <div style={{
+                  color: transaction.type === 'income' ? '#10b981' : '#ef4444', 
+                  fontWeight: 'bold'
+                }}>
+                  {transaction.type === 'income' ? '+' : ''}${Math.abs(transaction.amount).toFixed(2)}
+                </div>
               </div>
-              <div style={{color: '#ef4444', fontWeight: 'bold'}}>-$85.32</div>
-            </div>
-
-            <div style={{
-              padding: '1rem',
-              borderBottom: '1px solid #f9f9f9',
-              display: 'flex',
-              justifyContent: 'space-between'
-            }}>
-              <div>
-                <div style={{fontWeight: '500'}}>Salary</div>
-                <div style={{fontSize: '0.85rem', color: '#666'}}>Yesterday</div>
-              </div>
-              <div style={{color: '#10b981', fontWeight: 'bold'}}>+$1,200.00</div>
-            </div>
-
-            <div style={{
-              padding: '1rem',
-              borderBottom: '1px solid #f9f9f9',
-              display: 'flex',
-              justifyContent: 'space-between'
-            }}>
-              <div>
-                <div style={{fontWeight: '500'}}>Coffee Shop</div>
-                <div style={{fontSize: '0.85rem', color: '#666'}}>2 days ago</div>
-              </div>
-              <div style={{color: '#ef4444', fontWeight: 'bold'}}>-$12.50</div>
-            </div>
-
-            <div style={{
-              padding: '1rem',
-              display: 'flex',
-              justifyContent: 'space-between'
-            }}>
-              <div>
-                <div style={{fontWeight: '500'}}>Gas Station</div>
-                <div style={{fontSize: '0.85rem', color: '#666'}}>3 days ago</div>
-              </div>
-              <div style={{color: '#ef4444', fontWeight: 'bold'}}>-$45.20</div>
-            </div>
+            ))}
           </div>
         </div>
 
