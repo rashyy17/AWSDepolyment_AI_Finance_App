@@ -27,6 +27,7 @@ export default function Home() {
           <p><strong>Environment:</strong> {process.env.NODE_ENV || 'development'}</p>
           <p><strong>Status:</strong> ✅ All systems operational</p>
           <p><strong>Node.js:</strong> v{process.version}</p>
+          <p><strong>Last Updated:</strong> {new Date().toLocaleString()}</p>
         </div>
       </div>
     </div>
